@@ -1,0 +1,93 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8">
+  </head>
+
+<body>
+  <h2>Setup</h2>
+  <ol>
+    <li>Login to <a href="https://www.strava.com">strava.com</a> with your account.</li>
+    <li>Visit each heatmap tiles auth endpoint to associate your login cookies from strava.com with each instance:
+      <ul>
+        <li><a href="https://heatmap-external-a.strava.com/auth">https://heatmap-external-a.strava.com/auth</a></li>
+        <li><a href="https://heatmap-external-b.strava.com/auth">https://heatmap-external-b.strava.com/auth</a></li>
+        <li><a href="https://heatmap-external-c.strava.com/auth">https://heatmap-external-c.strava.com/auth</a></li>
+      </ul>
+    </li>
+  </ol>
+
+  <div>Upon success, it should say: <pre>Logged in as AthleteId(XXXXXXX), cloudfront cookies set</pre></div>
+
+  <h2>Usage</h2>
+
+  <ol>
+    <li><b>Strava iD:</b> You can now use the high-resolution map data from Strava in <a href="https://strava.github.io/iD">Strava iD</a>.</li>
+    <li><b>Trailforks:</b> As a bonus, you can also now see the heatmap tiles in Trailforks when the "ridelines" map tiles are enabled. Even in the path editor!</li>
+  </ol>
+
+  <h1>Heatmap Preferences</h1>
+
+  <div>These heatmap preferences are not well documented, but samples of most of them are demonstrated on the <a href="https://www.strava.com/heatmap">Strava Global Heatmap</a> page.</div>
+
+  <form>
+    <!-- color options are blue, color2, color1, hot, bluered, gray -->
+    <p>
+      <label><h2>Color Style</h2></label>
+      <p></p>
+      <div>
+        <input type="radio" name="color" value="color1" id="color1"/>
+        <label for="color1">color1</label>
+      </div>
+      <div>
+        <input type="radio" name="color" value="color2" id="color2"/>
+        <label for="color2">color2</label>
+      </div>
+      <div>
+        <input type="radio" name="color" value="blue" id="blue"/>
+        <label for="blue">blue</label>
+      </div>
+      <div>
+        <input type="radio" name="color" value="bluered" id="bluered"/>
+        <label for="bluered">bluered</label>
+      </div>
+      <div>
+        <input type="radio" name="color" value="hot" id="hot"/>
+        <label for="hot">hot</label>
+      </div>
+      <div>
+        <input type="radio" name="color" value="gray" id="gray"/>
+        <label for="gray">gray</label>
+      </div>
+    </p>
+      
+      <p>
+      <!--  type options are ride, all, cycling, both -->
+      <label><h2>Activity Type</h2></label>
+      <p></p>
+      <div>
+        <input type="radio" name="type" value="ride"/>
+        <label for="ride">ride</label>
+      </div>
+      <div>
+        <input type="radio" name="type" value="all"/>
+        <label for="all">all</label>
+      </div>
+      <div>
+        <input type="radio" name="type" value="cycling"/>
+        <label for="cycling">cycling</label>
+      </div>
+      <div>
+        <input type="radio" name="type" value="both"/>
+        <label for="both">both</label>
+      </div>
+      </p>
+
+      <button type="submit">Save</button>
+  </form>
+  <script src="options.js"></script>
+</body>
+
+</html>
