@@ -1,7 +1,8 @@
 var stravaTilePattern = "https://*.strava.com/tiles/*";
 var trailforksRideLinePattern = "https://gis.pinkbike.org/tiles/ridelines/*"
-var heatmapColorStyle = "blue" // color options are blue, color2, color1, hot, bluered, gray
+var heatmapColorStyle = "hot" // color options are blue, color2, color1, hot, bluered, gray
 var heatmapDataType = "cycling" // type options are ride, all, cycling, both
+var trailforksRedirectEnabled = false
 
 function redirectStrava(requestDetails) {
   // color options are blue, color2, color1, hot, bluered, gray
@@ -34,7 +35,7 @@ function redirectStrava(requestDetails) {
     stravaFixURLParams.shift() // remove the matched URL from the above array
 
     let newURL = `https://heatmap-external-${stravaFixURLParams[0]}.strava.com/tiles-auth/${stravaFixURLParams[1]}/${stravaFixURLParams[2]}/${stravaFixURLParams[3]}.png?px=${stravaFixURLParams[4]}`
-    
+
     // console.log("Redirecting: " + requestDetails.url + " to " + newURL + " using " + urlParams);
     return {
       redirectUrl: newURL
@@ -51,14 +52,14 @@ function redirectTrailforks(requestDetails) {
   // type options are ride, all, cycling, both
   // 'https://heatmap-external-$1.strava.com/tiles-auth/$2/$3/$4.png?px=$5'
   var trailforksRideLinesParams = requestDetails.url.match(/^https:\/\/gis.pinkbike.org\/tiles\/ridelines\/(.*).png$/)
-  if (trailforksRideLinesParams != null && trailforksRideLinesParams.length > 1) {
+  if (trailforksRedirectEnabled && trailforksRideLinesParams != null && trailforksRideLinesParams.length > 1) {
     trailforksRideLinesParams.shift()
 
     var shards = ['a','b','c']
     var randomShard = shards[Math.floor(Math.random() * shards.length)]
 
     let newURL = `https://heatmap-external-${randomShard}.strava.com/tiles-auth/${heatmapDataType}/${heatmapColorStyle}/${trailforksRideLinesParams[0]}.png?px=${256}`
-    
+
     // console.log("Redirecting: " + requestDetails.url + " to " + newURL + " using " + urlParams);
     return {
       redirectUrl: newURL
@@ -84,7 +85,14 @@ function updateStoragePrefs() {
         heatmapDataType = res.dataType
         console.log(`Received updated dataType pref ${heatmapDataType}`)
       }
-    })
+    });
+
+    browser.storage.sync.get('trailforksRideLines').then((res) => {
+      if (res.trailforksRideLines != null && res.trailforksRideLines != trailforksRedirectEnabled) {
+        trailforksRedirectEnabled = res.trailforksRideLines
+        console.log(`Received updated trailforksRideLines pref  ${trailforksRedirectEnabled}`)
+      }
+    });
 }
 
 updateStoragePrefs()

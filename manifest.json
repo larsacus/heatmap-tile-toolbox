@@ -3,28 +3,28 @@
     "description": "Redirects broken Strava heatmap tiles web requests to use the new tiles-auth tile URLs. In addition, allows rewriting those URLs to switch heatmap style and underlying data type dynamically, which was not previously possible. You will need to be logged into strava.com and visit all three instances of https://heatmap-external-{a,b,c}.strava.com/auth in order for those Strava heatmap shards to authenticate against your Strava.com account. Provides additional tiles redirecting to provide tiles in Trailforks mapping applications.",
     "manifest_version": 2,
     "name": "Strava Heatmap Request Fixer",
-    "version": "10.1",
+    "version": "0.1",
 
     "options_ui": {
       "page": "options.html",
       "browser_style": true
     },
-  
+
     "permissions": [
       "storage",
       "webRequest",
       "webRequestBlocking",
       "<all_urls>"
     ],
-   
+
     "background": {
       "scripts": ["background.js"]
     },
 
     "applications": {
       "gecko": {
-        "id": "strava-heatmap-fixer@theonlylars.com"
+        "id": "strava-heatmap-fixer@theonlylars.com",
+        "update_url": "https://theonlylars.com/extension-updates.json"
       }
     }
-  
   }
