@@ -90,6 +90,15 @@ function updateStoragePrefs() {
     browser.storage.sync.get('trailforksRideLines').then((res) => {
       if (res.trailforksRideLines != null && res.trailforksRideLines != trailforksRedirectEnabled) {
         trailforksRedirectEnabled = res.trailforksRideLines
+        if (trailforksRedirectEnabled) {
+          browser.webRequest.onBeforeRequest.addListener(
+            redirectTrailforks,
+            {urls:[trailforksRideLinePattern]},
+            ["blocking"]
+          );
+        } else {
+          browser.webRequest.onBeforeRequest.removeListener(redirectTrailforks)
+        }
         console.log(`Received updated trailforksRideLines pref  ${trailforksRedirectEnabled}`)
       }
     });
@@ -101,12 +110,6 @@ browser.storage.onChanged.addListener(updateStoragePrefs)
 browser.webRequest.onBeforeRequest.addListener(
   redirectStrava,
   {urls:[stravaTilePattern]},
-  ["blocking"]
-);
-
-browser.webRequest.onBeforeRequest.addListener(
-  redirectTrailforks,
-  {urls:[trailforksRideLinePattern]},
   ["blocking"]
 );
 
