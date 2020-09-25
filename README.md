@@ -1,3 +1,5 @@
+## _Update Sept 2020: Trailforks has changed some CORS settings on their site that make this currently broken. In addition, Strava iD with Strava Slide hasn't been working for anything useful in a long time, making this tool need some tender love and care, if its even able to get working again. It may be easier to dynamically add a new layer in the Trailforks map widget to show the raw Strava heatmap data. Needs some work._
+
 Rewrites broken Strava heatmap URL in the old non-auth style to use the new-style authenticated endpoints. In addition, adds instance sharding and Trailforks "ridelines" support to rewrite Strava heatmaps into places they weren't intended.
 
 ## Setup
